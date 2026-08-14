@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>For You ❤️</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pink:#ff5d91;--hot:#ff2d68;--soft:#ffd9e8;--panel:rgba(35,12,35,.72)}
+html,body{width:100%;height:100%;overflow:hidden}
+body{
+  font-family:Arial,Helvetica,sans-serif;color:#fff;
+  background:#090717;
+}
+.scene{
+  position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(circle at 25% 35%,rgba(255,75,125,.30),transparent 32%),
+    radial-gradient(circle at 78% 20%,rgba(255,55,125,.16),transparent 28%),
+    linear-gradient(120deg,#170b20 0%,#210d24 45%,#080917 100%);
+}
+.scene:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 38%,rgba(0,0,0,.48) 100%);
+}
+.puppy-bg{
+  position:absolute;left:2%;bottom:-7%;height:82vh;width:min(48vw,690px);
+  object-fit:cover;object-position:center top;
+  border-radius:48% 48% 0 0;
+  filter:saturate(1.05) brightness(.94);
+  mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
+  z-index:1;
+}
+.glow{
+  position:absolute;left:2%;bottom:3%;width:46vw;height:30vh;
+  background:radial-gradient(ellipse,rgba(255,65,120,.32),transparent 68%);
+  filter:blur(20px);z-index:0;
+}
+.string{
+  position:absolute;left:-3%;top:2%;width:58%;height:95px;
+  border-top:2px solid rgba(255,214,224,.65);border-radius:50%;transform:rotate(-6deg);z-index:3;
+}
+.lamp{position:absolute;top:28px;width:20px;height:28px;border-radius:50% 50% 45% 45%;
+  background:#fff2c9;box-shadow:0 0 12px #fff,0 0 28px #ff6e9a}
+.l1{left:7%}.l2{left:20%;top:39px}.l3{left:34%;top:49px}.l4{left:48%;top:45px}
+.stars,.hearts{position:absolute;inset:0;pointer-events:none;z-index:2}
+.star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.18;transform:scale(.4)}}
+.heart{position:absolute;color:#ff6c98;text-shadow:0 0 12px #ff4e85;animation:float 7s linear infinite;opacity:0}
+@keyframes float{0%{transform:translateY(110vh) scale(.7);opacity:0}15%{opacity:.7}100%{transform:translateY(-15vh) scale(1.15);opacity:0}}
+
+.content{
+  position:relative;z-index:5;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:flex-end;padding:40px 7% 40px 48%;
+}
+.card{
+  width:min(650px,92vw);max-height:90vh;overflow:auto;
+  padding:38px 38px 30px;border-radius:28px;
+  background:linear-gradient(145deg,rgba(52,20,48,.76),rgba(20,9,25,.78));
+  border:1px solid rgba(255,146,180,.42);
+  box-shadow:0 0 0 1px rgba(255,255,255,.03) inset,0 25px 90px rgba(0,0,0,.55),0 0 55px rgba(255,45,104,.12);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  text-align:center;animation:enter .55s ease both;
+}
+@keyframes enter{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+.badge{
+  display:inline-block;padding:7px 15px;border-radius:999px;margin-bottom:12px;
+  background:#ffc5d9;color:#3b1630;font-size:12px;font-weight:800;letter-spacing:1.3px;
+  box-shadow:0 0 18px rgba(255,128,166,.3)
+}
+h1{
+  font-size:clamp(32px,4.2vw,56px);line-height:1.05;margin:8px 0 18px;
+  color:#ffe0eb;text-shadow:0 0 25px rgba(255,92,147,.3)
+}
+h2{font-size:25px;color:#ffc7d9;margin:10px 0}
+p{font-size:17px;line-height:1.72;color:#f6e9ef;margin:12px auto;max-width:570px}
+.quote{
+  margin:18px auto;padding:16px 18px;max-width:570px;text-align:left;
+  border-left:3px solid var(--pink);background:rgba(255,92,147,.07);
+  border-radius:0 17px 17px 0;color:#ffe0e9
+}
+.hero-puppy{
+  width:108px;height:108px;object-fit:cover;border-radius:50%;display:block;margin:0 auto 10px;
+  border:3px solid rgba(255,215,226,.65);box-shadow:0 0 30px rgba(255,80,135,.38)
+}
+.btns{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:20px}
+button{
+  border:0;border-radius:999px;padding:15px 25px;font-size:16px;font-weight:800;
+  cursor:pointer;color:#fff;transition:.25s;font-family:inherit;
+}
+button:hover{transform:translateY(-3px) scale(1.02)}
+.primary{background:linear-gradient(135deg,#ff6599,#ff2e68);box-shadow:0 8px 30px rgba(255,45,104,.36)}
+.secondary{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2)}
+.pulse{animation:pulse 1.35s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,70,120,.08),0 8px 35px rgba(255,45,104,.42)}}
+.note{min-height:28px;margin-top:13px;color:#ffcddd;font-size:14px;font-weight:600}
+.progress{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(430px,55vw);
+  height:5px;background:rgba(255,255,255,.12);border-radius:99px;z-index:10
+}
+.progress span{display:block;width:25%;height:100%;border-radius:99px;background:linear-gradient(90deg,#ff8db2,#ff2f68);transition:.5s}
+.footer{position:fixed;bottom:12px;right:18px;z-index:6;color:rgba(255,255,255,.4);font-size:10px;letter-spacing:.5px}
+.card::-webkit-scrollbar{width:5px}.card::-webkit-scrollbar-thumb{background:rgba(255,120,160,.35);border-radius:10px}
+
+@media(max-width:800px){
+  html,body{overflow:auto}
+  .scene{min-height:100vh}
+  .puppy-bg{left:-9%;bottom:-2%;height:46vh;width:72vw;opacity:.58;filter:brightness(.72) saturate(1.05)}
+  .glow{left:0;bottom:5%;width:80vw}
+  .string{width:100%;top:1%}
+  .content{height:auto;min-height:100vh;align-items:flex-start;justify-content:center;padding:10vh 16px 45px}
+  .card{max-height:none;margin-top:7vh;padding:28px 20px}
+  h1{font-size:34px}p{font-size:15px}.quote{font-size:14px}
+  .progress{width:70vw}
+}
+@media(max-width:480px){
+  .puppy-bg{height:42vh;width:82vw;left:-15%;opacity:.42}
+  .content{padding-top:12vh}.card{border-radius:24px}
+  .hero-puppy{width:88px;height:88px}
+  button{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="glow"></div>
+  <img class="puppy-bg" src="assets/puppy.jpg" alt="Cute puppy">
+  <div class="string"><i class="lamp l1"></i><i class="lamp l2"></i><i class="lamp l3"></i><i class="lamp l4"></i></div>
+  <div class="stars" id="stars"></div><div class="hearts" id="hearts"></div>
+</div>
+
+<div class="progress"><span id="bar"></span></div>
+<div class="content">
+  <section class="card" id="s1">
+    <div class="badge">♥ A little something from my heart ♥</div>
+    <img class="hero-puppy" src="assets/puppy.jpg" alt="Cute puppy with red bow">
+    <h1>Heyy… ❤️<br><span style="font-size:.68em">I made something special for you</span></h1>
+    <p>Please hear me out once… 💗</p>
+    <div class="btns"><button class="primary" onclick="go(2)">START ❤️</button></div>
+    <div class="note">🐾 It's just for you 🐾</div>
+  </section>
+
+  <section class="card hidden" id="s2">
+    <div class="badge">♥ STAGE 2 ♥</div>
+    <img class="hero-puppy" src="assets/puppy.jpg" alt="Cute puppy with red bow">
+    <h1>I'm Really Sorry ❤️</h1>
+    <p>I know I've made mistakes. I never wanted to hurt you.</p>
+    <p>You mean the world to me, and losing you is my biggest fear.</p>
+    <div class="quote">❤️ I'm truly, truly sorry — from the bottom of my heart.</div>
+    <div class="btns"><button class="primary" onclick="go(3)">Next ❤️</button></div>
+  </section>
+
+  <section class="card hidden" id="s3">
+    <div class="badge">♥ STAGE 3 ♥</div>
+    <h1>Can We Start Again? ❤️</h1>
+    <p style="color:#ffb4cd">Some people are too special to simply let go…<br>and you are one of those people for me.</p>
+    <p>I just want one beautiful chance to talk, listen, and make things right.</p>
+    <div class="quote">
+      Main jaanta hoon maine shayad ye pehle kabhi nahi kaha hai, lekin…<br><br>
+      Thank you for being a part of my life and for choosing me. Thank you for being patient with me when I wasn't at my best, and for accepting my imperfections. ❤️<br><br>
+      You waited for me when I was away chasing my dreams. You've changed my life in so many ways that you can't even imagine.<br><br>
+      And now… let me give you the life and the man you deserve. I promise I'll never give up on you or us, ever.<br><br>
+      <strong style="color:#ff7ea7">I LOVE YOU… ❤️<br>I LOVE YOU SO MUCH. 🥹❤️</strong>
+    </div>
+    <div class="btns">
+      <button class="primary pulse" onclick="go(4)">YES, LET'S TALK ❤️</button>
+      <button class="secondary" onclick="notYet()">I NEED SOME TIME 🥺</button>
+    </div>
+    <div class="note" id="note"></div>
+  </section>
+
+  <section class="card hidden" id="s4">
+    <div class="badge">♥ STAGE 4 ♥</div>
+    <img class="hero-puppy" src="assets/puppy.jpg" alt="Cute puppy with red bow">
+    <h1>Thank You For This Chance ❤️</h1>
+    <p>This is not just a new start…<br>it's a promise of a better us.</p>
+    <div class="quote" style="text-align:center;font-style:italic;color:#ff9fbd">
+      Let's heal, let's love, let's build our forever. ❤️
+    </div>
+    <p><b>I'm so grateful to have you in my life. 🥹❤️</b></p>
+    <div class="btns"><button class="primary" onclick="celebrate()">Let's Talk 💕</button></div>
+    <div class="note" id="finalNote"></div>
+  </section>
+</div>
+<div class="footer">made with a little courage & a lot of ❤️</div>
+
+<script>
+const stars=document.getElementById("stars"),hearts=document.getElementById("hearts"),bar=document.getElementById("bar");
+for(let i=0;i<105;i++){
+  const s=document.createElement("i");s.className="star";
+  s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*2+"s";stars.appendChild(s);
+}
+for(let i=0;i<22;i++){
+  const h=document.createElement("i");h.className="heart";
+  h.textContent=["♥","♡","❤","💗"][i%4];
+  h.style.left=Math.random()*100+"%";h.style.fontSize=(12+Math.random()*22)+"px";
+  h.style.animationDelay=Math.random()*7+"s";h.style.animationDuration=(5+Math.random()*4)+"s";
+  hearts.appendChild(h);
+}
+function go(n){
+  document.querySelectorAll(".card").forEach(x=>x.classList.add("hidden"));
+  const next=document.getElementById("s"+n);
+  next.classList.remove("hidden");
+  next.style.animation="none";void next.offsetWidth;next.style.animation="";
+  bar.style.width=(n*25)+"%";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function notYet(){
+  document.getElementById("note").textContent="🥺 Just one little conversation? I have so much left to say from my heart. ❤️";
+}
+function celebrate(){
+  document.getElementById("finalNote").textContent="💗 You just made this little puppy very happy! 🐶❤️";
+  for(let i=0;i<32;i++){
+    const h=document.createElement("i");h.className="heart";h.textContent="❤";
+    h.style.left=(35+Math.random()*30)+"%";h.style.animationDelay="0s";
+    h.style.animationDuration=(2+Math.random()*2)+"s";hearts.appendChild(h);
+  }
+}
+</script>
+</body>
+</html>
